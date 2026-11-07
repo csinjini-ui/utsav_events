@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utsav – Events in Bhubaneswar</title>
+<meta name="description" content="Browse, search and register for upcoming events in Bhubaneswar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef2f7; --surface:#fff; --ink:#14213d; --muted:#5b6785; --line:#d6dde9;
+  --accent:#f4a300; --accent-ink:#2a1c00; --teal:#0f8b8d; --danger:#c62f3a; --ok:#14804a;
+  --shadow:0 1px 2px rgba(20,33,61,.06),0 8px 24px rgba(20,33,61,.08);
+  --display:'Bricolage Grotesque',system-ui,sans-serif; --body:'DM Sans',system-ui,sans-serif;
+}
+:root[data-theme="dark"]{
+  --bg:#0c1426; --surface:#142040; --ink:#eaf0ff; --muted:#9aa8c9; --line:#26345c;
+  --accent:#ffb627; --accent-ink:#1d1300; --teal:#3cc4c6; --danger:#ff6b76; --ok:#4cd68c;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1426; --surface:#142040; --ink:#eaf0ff; --muted:#9aa8c9; --line:#26345c;
+    --accent:#ffb627; --accent-ink:#1d1300; --teal:#3cc4c6; --danger:#ff6b76; --ok:#4cd68c;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;transition:background .3s,color .3s}
+h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.02em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{width:min(1120px,92%);margin-inline:auto}
+.btn{font:600 1rem var(--body);border:0;border-radius:10px;padding:.8rem 1.4rem;cursor:pointer;background:var(--accent);color:var(--accent-ink);text-decoration:none;display:inline-block;transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+.logo{font:800 1.5rem var(--display);text-decoration:none}
+.logo span{color:var(--accent)}
+nav ul{display:flex;gap:1.5rem;list-style:none;padding:0}
+nav a{text-decoration:none;font-weight:500;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+.icon-btn{background:var(--surface);border:1px solid var(--line);border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:1.1rem;color:var(--ink)}
+.menu-btn{display:none}
+
+/* hero */
+.hero{padding:clamp(3rem,9vw,6.5rem) 0 3rem}
+.hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2.4rem,6.5vw,4.6rem);font-weight:800}
+.hero p.lead{margin:1.2rem 0 2rem;max-width:46ch;color:var(--muted);font-size:1.15rem}
+.hero .actions{display:flex;gap:.8rem;flex-wrap:wrap}
+.next{background:var(--ink);color:var(--bg);border-radius:20px;padding:1.8rem;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:rise .8s ease both}
+.next::after{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;background:var(--accent);opacity:.9}
+.next small{opacity:.75}
+.next h2{font-size:1.7rem;margin:.3rem 0 1.2rem;position:relative;z-index:1;max-width:14ch}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;position:relative;z-index:1}
+.count div{background:color-mix(in srgb,var(--bg) 14%,transparent);border-radius:12px;padding:.6rem .2rem;text-align:center}
+.count b{display:block;font:800 1.7rem var(--display)}
+.count span{font-size:.75rem;opacity:.8}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* toolbar */
+section{padding:3rem 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.sec-head h2{font-size:clamp(1.8rem,4vw,2.6rem)}
+.search{flex:1 1 260px;max-width:380px;padding:.75rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.45rem 1rem;border-radius:99px;cursor:pointer;font:500 .95rem var(--body);transition:background .2s}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem}
+.card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .25s}
+.card:hover{transform:translateY(-4px)}
+.art{height:150px;position:relative;display:flex;align-items:flex-end;padding:.9rem}
+.art .tag{background:var(--surface);color:var(--ink);font-weight:600;font-size:.8rem;padding:.2rem .7rem;border-radius:99px}
+.art .date{position:absolute;top:.9rem;right:.9rem;background:var(--surface);color:var(--ink);border-radius:10px;padding:.3rem .7rem;text-align:center;font:800 1.3rem/1 var(--display)}
+.art .date small{display:block;font:600 .7rem var(--body);color:var(--muted)}
+.card .body{padding:1.2rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.card h3{font-size:1.3rem}
+.card .venue{color:var(--muted);font-size:.9rem}
+.card .desc{font-size:.95rem}
+.card .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:.8rem}
+.seats{font-size:.85rem;color:var(--teal);font-weight:600}
+.seats.low{color:var(--danger)}
+.empty{text-align:center;color:var(--muted);padding:3rem 0;grid-column:1/-1}
+
+/* my registrations + footer */
+.reg-list{display:grid;gap:.7rem}
+.reg{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.9rem 1.2rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+.reg button{background:none;border:0;color:var(--danger);cursor:pointer;font:600 .9rem var(--body)}
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);text-align:center;font-size:.9rem}
+
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(8,14,30,.6);display:none;align-items:center;justify-content:center;padding:1rem;z-index:50}
+.overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:20px;width:min(860px,100%);max-height:92vh;overflow:auto;display:grid;grid-template-columns:1fr 1fr;animation:pop .25s ease both;position:relative}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.modal .info{padding:2rem}
+.modal .info h2{font-size:2rem;margin:.4rem 0 1rem}
+.modal dl{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1rem;margin:1rem 0;font-size:.95rem}
+.modal dt{color:var(--muted)}
+.modal form,.modal .done{padding:2rem;background:var(--bg)}
+.field{margin-bottom:1rem}
+label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.3rem}
+input,select{width:100%;padding:.7rem .9rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+input.bad{border-color:var(--danger)}
+.err{color:var(--danger);font-size:.82rem;min-height:1.1em;margin-top:.2rem}
+.close{position:absolute;top:.8rem;right:.8rem;z-index:2}
+.done{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:.8rem}
+.done .tick{width:64px;height:64px;border-radius:50%;background:var(--ok);color:#fff;font-size:2rem;display:grid;place-items:center;animation:pop .4s ease both}
+
+@media (max-width:820px){
+  .hero .wrap,.modal{grid-template-columns:1fr}
+  .menu-btn{display:inline-block}
+  nav ul{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);flex-direction:column;padding:1rem 4%;border-bottom:1px solid var(--line);gap:1rem}
+  nav ul.open{display:flex}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">Utsav<span>.</span></a>
+    <nav aria-label="Main">
+      <ul id="menu">
+        <li><a href="#events">Events</a></li>
+        <li><a href="#mine">My registrations</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;gap:.5rem">
+      <button class="icon-btn" id="theme" aria-label="Toggle dark mode">☾</button>
+      <button class="icon-btn menu-btn" id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Find your next evening out in Bhubaneswar.</h1>
+        <p class="lead">Concerts, hackathons, workshops and runs from across the city. Pick one, register in under a minute.</p>
+        <div class="actions">
+          <a class="btn" href="#events">Browse events</a>
+          <a class="btn ghost" href="#mine">My registrations</a>
+        </div>
+      </div>
+      <aside class="next" aria-live="off">
+        <small>Happening next</small>
+        <h2 id="nextTitle"></h2>
+        <div class="count" id="count"></div>
+      </aside>
+    </div>
+  </div>
+
+  <section id="events">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Upcoming events</h2>
+        <input class="search" id="search" type="search" placeholder="Search by name, venue or keyword" aria-label="Search events">
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="mine">
+    <div class="wrap">
+      <div class="sec-head"><h2>My registrations</h2></div>
+      <div class="reg-list" id="regs"></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Utsav · Built with HTML, CSS and JavaScript. Registrations are stored in your browser only.</div></footer>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+const EVENTS=[
+ {id:1,name:"Odisha Dev Summit",cat:"Tech",date:"2026-11-21T10:00",venue:"KIIT Convention Centre",cap:300,taken:212,hue:[210,260],desc:"A full day of talks on web, cloud and open source from engineers across eastern India.",long:"Eight talks, two workshops and a career fair. Lunch and certificates are included for every attendee."},
+ {id:2,name:"Rhythm of Utkal",cat:"Music",date:"2026-11-28T18:30",venue:"Rabindra Mandap",cap:500,taken:471,hue:[330,20],desc:"Odissi, folk and fusion acts share one stage for an evening of live music.",long:"Doors open at 5:30 PM. Three headline performances, a short interval and local street food at the venue."},
+ {id:3,name:"Startup Pitch Night",cat:"Business",date:"2026-12-05T17:00",venue:"IIIT Bhubaneswar Auditorium",cap:150,taken:64,hue:[160,200],desc:"Ten early-stage founders pitch to a panel of investors. Audience votes for a favourite.",long:"Each founder gets five minutes and three minutes of questions. Networking tea follows the final pitch."},
+ {id:4,name:"Kalinga 10K Run",cat:"Sports",date:"2026-12-13T05:30",venue:"Kalinga Stadium",cap:800,taken:390,hue:[20,50],desc:"A timed 10 km road run through the city’s tree-lined avenues, open to all fitness levels.",long:"Chip timing, hydration points every 2 km, a finisher medal and breakfast for all participants."},
+ {id:5,name:"Pattachitra Workshop",cat:"Art",date:"2026-12-19T11:00",venue:"Odisha State Museum",cap:40,taken:33,hue:[0,40],desc:"Learn the basics of traditional scroll painting from award-winning artisans from Raghurajpur.",long:"All materials are provided. You will leave with a finished A4 painting. Beginners are welcome."},
+ {id:6,name:"24-Hour AI Hackathon",cat:"Tech",date:"2027-01-09T09:00",venue:"Centurion University Campus",cap:200,taken:88,hue:[250,300],desc:"Form a team of up to four and build something useful with data and AI in one day.",long:"Mentors on site, meals and snacks provided. Prizes for the top three teams and a best-design award."}
+];
+const $=s=>document.querySelector(s), KEY="utsav.registrations";
+let cat="All", q="", current=null;
+
+/* storage */
+const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}};
+const save=a=>{try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}};
+const left=e=>e.cap-e.taken-load().filter(r=>r.eventId===e.id).length;
+const fmt=(d,o)=>new Date(d).toLocaleDateString("en-IN",o);
+const esc=s=>s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* theme */
+function setTheme(t){document.documentElement.dataset.theme=t;$("#theme").textContent=t==="dark"?"☀":"☾";try{localStorage.setItem("utsav.theme",t)}catch(e){}}
+let saved=null;try{saved=localStorage.getItem("utsav.theme")}catch(e){}
+setTheme(saved||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));
+$("#theme").onclick=()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark");
+$("#burger").onclick=e=>{const o=$("#menu").classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",o)};
+$("#menu").onclick=()=>$("#menu").classList.remove("open");
+
+/* countdown */
+const upcoming=()=>EVENTS.filter(e=>new Date(e.date)>new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date));
+function tick(){
+  const n=upcoming()[0]; if(!n){$("#nextTitle").textContent="New events soon";$("#count").innerHTML="";return}
+  $("#nextTitle").textContent=n.name;
+  let s=Math.max(0,Math.floor((new Date(n.date)-new Date())/1000));
+  const v=[["days",86400],["hours",3600],["mins",60],["secs",1]].map(([l,u])=>{const x=Math.floor(s/u);s-=x*u;return `<div><b>${String(x).padStart(2,"0")}</b><span>${l}</span></div>`});
+  $("#count").innerHTML=v.join("");
+}
+tick();setInterval(tick,1000);
+
+/* chips + grid */
+const cats=["All",...new Set(EVENTS.map(e=>e.cat))];
+$("#chips").innerHTML=cats.map(c=>`<button class="chip" aria-pressed="${c==="All"}">${c}</button>`).join("");
+$("#chips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;cat=b.textContent;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b));render()};
+$("#search").oninput=e=>{q=e.target.value.trim().toLowerCase();render()};
+
+function render(){
+  const list=EVENTS.filter(e=>(cat==="All"||e.cat===cat)&&(e.name+e.venue+e.desc+e.cat).toLowerCase().includes(q));
+  $("#grid").innerHTML=list.length?list.map(e=>{const l=left(e);return `
+  <article class="card">
+    <div class="art" style="background:linear-gradient(135deg,hsl(${e.hue[0]} 70% 45%),hsl(${e.hue[1]} 75% 35%))">
+      <span class="tag">${e.cat}</span>
+      <div class="date">${fmt(e.date,{day:"numeric"})}<small>${fmt(e.date,{month:"short"})}</small></div>
+    </div>
+    <div class="body">
+      <h3>${e.name}</h3>
+      <div class="venue">${e.venue} · ${fmt(e.date,{weekday:"short",hour:"numeric",minute:"2-digit"})}</div>
+      <p class="desc">${e.desc}</p>
+      <div class="foot"><span class="seats ${l<30?"low":""}">${l>0?l+" seats left":"Sold out"}</span>
+      <button class="btn" data-id="${e.id}">View details</button></div>
+    </div>
+  </article>`}).join(""):`<p class="empty">No events match your search. Try another keyword or category.</p>`;
+}
+$("#grid").onclick=e=>{const b=e.target.closest("[data-id]");if(b)openModal(+b.dataset.id)};
+
+/* modal + form */
+function openModal(id){
+  current=EVENTS.find(e=>e.id===id);const l=left(current);
+  $("#modal").innerHTML=`
+  <button class="icon-btn close" aria-label="Close" id="x">✕</button>
+  <div class="info">
+    <span class="seats">${current.cat}</span>
+    <h2 id="mTitle">${current.name}</h2>
+    <p>${current.long}</p>
+    <dl><dt>Date</dt><dd>${fmt(current.date,{weekday:"long",day:"numeric",month:"long",year:"numeric"})}</dd>
+    <dt>Time</dt><dd>${fmt(current.date,{hour:"numeric",minute:"2-digit"}).split(", ").pop()}</dd>
+    <dt>Venue</dt><dd>${current.venue}</dd><dt>Seats</dt><dd>${l} of ${current.cap} left</dd></dl>
+  </div>
+  ${l>0?`<form id="form" novalidate>
+    <h3 style="margin-bottom:1rem">Register for this event</h3>
+    <div class="field"><label for="n">Full name</label><input id="n" autocomplete="name"><div class="err"></div></div>
+    <div class="field"><label for="m">Email address</label><input id="m" type="email" autocomplete="email"><div class="err"></div></div>
+    <div class="field"><label for="p">Phone number</label><input id="p" type="tel" inputmode="numeric" placeholder="10-digit mobile number" autocomplete="tel"><div class="err"></div></div>
+    <div class="field"><label for="ev">Event</label><select id="ev">${EVENTS.map(e=>`<option value="${e.id}" ${e.id===id?"selected":""}>${e.name}</option>`).join("")}</select></div>
+    <button class="btn" style="width:100%">Confirm registration</button>
+  </form>`:`<div class="done"><h3>This event is sold out</h3><p>Check other events or come back later in case seats open up.</p></div>`}`;
+  $("#overlay").classList.add("open");document.body.style.overflow="hidden";
+  $("#x").onclick=closeModal;$("#x").focus();
+  const f=$("#form");if(f)f.onsubmit=submit;
+}
+function closeModal(){$("#overlay").classList.remove("open");document.body.style.overflow=""}
+$("#overlay").onclick=e=>{if(e.target.id==="overlay")closeModal()};
+addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+
+const rules={
+  n:v=>/^[A-Za-z][A-Za-z .'-]{1,49}$/.test(v)?"":"Enter your full name using letters only (at least 2).",
+  m:v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)?"":"Enter a valid email, like name@example.com.",
+  p:v=>/^[6-9]\d{9}$/.test(v.replace(/[\s-]/g,""))?"":"Enter a 10-digit Indian mobile number starting with 6–9."
+};
+function check(k){const i=$("#"+k),m=rules[k](i.value.trim());i.classList.toggle("bad",!!m);i.nextElementSibling.textContent=m;return !m}
+document.addEventListener("input",e=>{if(rules[e.target.id]&&e.target.classList.contains("bad"))check(e.target.id)});
+document.addEventListener("focusout",e=>{if(rules[e.target.id]&&e.target.value)check(e.target.id)});
+
+function submit(e){
+  e.preventDefault();
+  const ok=Object.keys(rules).map(check).every(Boolean);
+  if(!ok){document.querySelector(".bad").focus();return}
+  const ev=EVENTS.find(x=>x.id===+$("#ev").value);
+  if(left(ev)<1){alert("Sorry, that event just sold out.");return}
+  const all=load(), email=$("#m").value.trim().toLowerCase();
+  if(all.some(r=>r.eventId===ev.id&&r.email===email)){
+    const s=$("#m");s.classList.add("bad");s.nextElementSibling.textContent="This email is already registered for "+ev.name+".";s.focus();return}
+  const rec={ref:"UT"+Date.now().toString(36).toUpperCase(),eventId:ev.id,name:$("#n").value.trim(),email,phone:$("#p").value.replace(/[\s-]/g,"")};
+  all.push(rec);save(all);
+  $("#form").outerHTML=`<div class="done"><div class="tick">✓</div><h3>You’re registered, ${esc(rec.name.split(" ")[0])}!</h3>
+  <p>${ev.name} on ${fmt(ev.date,{day:"numeric",month:"long"})}. We’ve saved your booking, reference <b>${rec.ref}</b>.</p>
+  <button class="btn" id="ok">Done</button></div>`;
+  $("#ok").onclick=closeModal;$("#ok").focus();
+  render();renderRegs();
+}
+
+/* registrations */
+function renderRegs(){
+  const a=load();
+  $("#regs").innerHTML=a.length?a.map(r=>{const e=EVENTS.find(x=>x.id===r.eventId);return `
+  <div class="reg"><div><b>${e.name}</b><br><small>${esc(r.name)} · ${esc(r.email)} · ${fmt(e.date,{day:"numeric",month:"short",year:"numeric"})} · Ref ${r.ref}</small></div>
+  <button data-cancel="${r.ref}">Cancel registration</button></div>`}).join(""):`<p class="empty" style="padding:1rem 0;text-align:left">You haven’t registered for anything yet. Pick an event above to get started.</p>`;
+}
+$("#regs").onclick=e=>{const r=e.target.dataset.cancel;if(r&&confirm("Cancel this registration?")){save(load().filter(x=>x.ref!==r));render();renderRegs()}};
+
+render();renderRegs();
+</script>
+</body>
+</html>
